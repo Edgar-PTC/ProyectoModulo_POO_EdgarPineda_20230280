@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProveedoresService {
@@ -44,6 +45,9 @@ public class ProveedoresService {
 
     //Funcion para buscar Proveedores
     public List<ProveedoresDTO> getProveedores() {
-
+        List<ProveedoresEntity> proveedores = repo.findAll();
+        return proveedores.stream()
+                .map(this::convertirADTO)
+                .collect(Collectors.toList());
     }
 }

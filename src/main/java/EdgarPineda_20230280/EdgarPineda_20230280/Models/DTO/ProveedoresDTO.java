@@ -21,7 +21,7 @@ public class ProveedoresDTO {
 
     //Etiquetas para que su valor no se pase de 25 como esta establecido en la base
     @Getter @Setter @Size(max = 25)
-    private int telefono;
+    private String telefono;
 
     //Etiquetas para que su valor no se pase de 128 como esta establecido en la base
     @Size(max = 128)
@@ -35,10 +35,10 @@ public class ProveedoresDTO {
     //Etiquetas para que su valor no se pase de 35 como esta establecido en la base
     @Getter @Setter
     @Size(max = 35)
-    private long code;
+    private String code;
 
     @Getter @Setter
-    private int status;
+    private Boolean status;
 
     //Etiquetas para que su valor no se pase de 256 como esta establecido en la base
     @Size(max = 256)

@@ -23,7 +23,7 @@ public class ProveedoresEntity {
     private String nombre;
 
     @Column(name = "PROVIDERPHONE")
-    private int telefono;
+    private String telefono;
 
     @Column(name = "PROVIDERADDRESS")
     private String address;
@@ -32,10 +32,10 @@ public class ProveedoresEntity {
     private String email;
 
     @Column(name = "PROVIDERCODE", unique = true)
-    private long code;
+    private String code;
 
     @Column(name = "PROVIDERSTATUS")
-    private int status;
+    private Boolean status;
 
     @Column(name = "PROVIDERCOMMENTS")
     private String comment;
