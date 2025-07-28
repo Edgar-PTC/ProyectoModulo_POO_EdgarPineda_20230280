@@ -10,7 +10,6 @@ import static org.hibernate.internal.util.collections.ArrayHelper.forEach;
 public class ProyectoModuloEdgarPineda2023028Application {
 
 	public static void main(String[] args) {
-
 		//Conexion para buscar la informacion de BD
 		Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 		dotenv.entries().forEach(entry ->
