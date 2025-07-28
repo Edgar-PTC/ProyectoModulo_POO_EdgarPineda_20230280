@@ -9,14 +9,14 @@ import lombok.ToString;
 @Entity
 @Table(name = "TBPROVIDER")
 @Getter @Setter @ToString @EqualsAndHashCode
-public class ProveedoresEntity {
-
+public class ProveedoresEntity
+{
     //Atributos = Columnas
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_provider")
     @SequenceGenerator(name = "seq_provider", sequenceName = "seq_provider", allocationSize = 1)
     @Column(name = "PROVIDERID")
-    private long id;
+    private Long id;
 
     @Column(name = "PROVIDERNAME", unique = true)
     private String nombre;
