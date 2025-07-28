@@ -1,15 +1,21 @@
 package EdgarPineda_20230280.EdgarPineda_20230280.Services;
 
 import EdgarPineda_20230280.EdgarPineda_20230280.Entities.ProveedoresEntity;
+import EdgarPineda_20230280.EdgarPineda_20230280.Exceptions.ExceptionProveedorNoAgregado;
 import EdgarPineda_20230280.EdgarPineda_20230280.Models.DTO.ProveedoresDTO;
 import EdgarPineda_20230280.EdgarPineda_20230280.Repositories.ProveedoresRepository;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ProveedoresService {
 
@@ -49,5 +55,19 @@ public class ProveedoresService {
         return proveedores.stream()
                 .map(this::convertirADTO)
                 .collect(Collectors.toList());
+    }
+
+    public ProveedoresDTO insertarProveedor(@Valid ProveedoresDTO json) {
+        if(json == null || json.getNombre() == null || json.getCode() == null || json.getEmail() == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Los campos nombre, codigo y email no deben estar vacio");
+        }
+        try{
+            ProveedoresEntity entity = convertirAEntity(json);
+            ProveedoresEntity respuesta = repo.save(entity);
+            return convertirADTO(respuesta);
+        } catch (Exception e){
+            log.error("Error al registrar el nuevo proyecto: " + e.getMessage());
+            throw new ExceptionProveedorNoAgregado("Error al registrar el nuevo proyecto");
+        }
     }
 }
