@@ -1,7 +1,9 @@
 package EdgarPineda_20230280.EdgarPineda_20230280.Services;
 
 import EdgarPineda_20230280.EdgarPineda_20230280.Entities.ProveedoresEntity;
+import EdgarPineda_20230280.EdgarPineda_20230280.Exceptions.ExceptionProveedorNoActualizado;
 import EdgarPineda_20230280.EdgarPineda_20230280.Exceptions.ExceptionProveedorNoAgregado;
+import EdgarPineda_20230280.EdgarPineda_20230280.Exceptions.ExceptionValoresVaciosUpdate;
 import EdgarPineda_20230280.EdgarPineda_20230280.Models.DTO.ProveedoresDTO;
 import EdgarPineda_20230280.EdgarPineda_20230280.Repositories.ProveedoresRepository;
 import jakarta.validation.Valid;
@@ -11,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,6 +76,30 @@ public class ProveedoresService {
         } catch (Exception e){
             log.error("Error al registrar el nuevo proyecto: " + e.getMessage());
             throw new ExceptionProveedorNoAgregado("Error al registrar el nuevo proyecto");
+        }
+    }
+
+    public ProveedoresDTO actualizarProveedor(long id, @Valid ProveedoresDTO dto) {
+        ProveedoresEntity entity = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario No encontrado"));
+
+        if (dto == null || dto.getNombre() == null || dto.getTelefono() == null || dto.getEmail() == null || dto.getAddress() == null || dto.getCode() == null || dto.getComment() == null || dto.getStatus() == null){
+            throw new ExceptionValoresVaciosUpdate("Hay campos vacios en el metodo Update");
+        }
+
+        try {
+            entity.setNombre(dto.getNombre());
+            entity.setTelefono(dto.getTelefono());
+            entity.setAddress(dto.getAddress());
+            entity.setEmail(dto.getEmail());
+            entity.setCode(dto.getCode());
+            entity.setStatus(dto.getStatus());
+            entity.setComment(dto.getComment());
+            ProveedoresEntity respuesta = repo.save(entity);
+            return convertirADTO(respuesta);
+        }catch (Exception e){
+            log.error("Error al actualizar el registro: " + e.getMessage());
+            throw new ExceptionProveedorNoActualizado("Error al actualizar el proveedor");
         }
     }
 }
