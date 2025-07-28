@@ -6,7 +6,6 @@ import EdgarPineda_20230280.EdgarPineda_20230280.Repositories.ProveedoresReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,5 +48,12 @@ public class ProveedoresService {
         return proveedores.stream()
                 .map(this::convertirADTO)
                 .collect(Collectors.toList());
+    }
+
+    //Funcion para buscar filtrado
+    public ProveedoresDTO buscarporID(Long id){
+        ProveedoresEntity entity = repo.findById(id).orElseThrow(() -> new RuntimeException("No se encontro el proveedor"));
+
+        return convertirADTO(entity);
     }
 }

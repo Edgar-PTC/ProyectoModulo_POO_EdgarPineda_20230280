@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-//Tabla a la que pertenece
 @Table(name = "TBPROVIDER")
 @Getter @Setter @ToString @EqualsAndHashCode
 public class ProveedoresEntity {

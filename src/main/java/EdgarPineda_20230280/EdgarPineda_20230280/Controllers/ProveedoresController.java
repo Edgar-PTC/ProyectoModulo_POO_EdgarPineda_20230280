@@ -3,9 +3,7 @@ package EdgarPineda_20230280.EdgarPineda_20230280.Controllers;
 import EdgarPineda_20230280.EdgarPineda_20230280.Models.DTO.ProveedoresDTO;
 import EdgarPineda_20230280.EdgarPineda_20230280.Services.ProveedoresService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +21,12 @@ public class ProveedoresController {
         //Llama la funcion de service y lo retorna
         return service.getProveedores();
     }
+
+    //EndPoint para buscar por ID
+    @GetMapping("/getidProveedores/{id}")
+    public ProveedoresDTO buscarporID(@PathVariable Long id){
+        return service.buscarporID(id);
+    }
+
+
 }
