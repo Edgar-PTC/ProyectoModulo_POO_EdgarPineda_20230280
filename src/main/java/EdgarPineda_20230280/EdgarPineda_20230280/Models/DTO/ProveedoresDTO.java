@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString @EqualsAndHashCode
 @Getter @Setter
 public class ProveedoresDTO {
-    private long id;
+    private Long id;
 
     //Etiquetas para que no este vacio y que su valor no se pase de 50 como esta establecido en la base
     @NotBlank(message = "El nombre es obligatorio y unico")
